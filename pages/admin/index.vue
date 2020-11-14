@@ -1,11 +1,13 @@
 <template>
   <div class="admin-page">
     <section class="new-post">
-      <AppButton @click="$router.push('/admin/new-post')">Create Post</AppButton>
+      <AppButton @click="$router.push('/admin/new-post')"
+        >Create Post</AppButton
+      >
     </section>
     <section class="existing-posts">
       <h1>Existing post</h1>
-      <PostList isAdmin/>
+      <PostList isAdmin />
     </section>
   </div>
 </template>
@@ -13,9 +15,10 @@
 <script lang="ts">
 import Vue from "vue";
 import PostList from "@/components/Posts/PostList.vue";
-import AppButton from '@/components/UI/AppButton.vue'
+import AppButton from "@/components/UI/AppButton.vue";
 
 export default Vue.extend({
+  layout: "admin",
   components: {
     PostList,
     AppButton
