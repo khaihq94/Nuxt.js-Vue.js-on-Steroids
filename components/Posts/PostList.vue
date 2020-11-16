@@ -1,22 +1,11 @@
 <template>
   <section class="post-list">
-    <PostPreview
-      id="1"
-      thumbnail="https://static.pexels.com/photos/270348/pexels-photo-270348.jpeg"
-      title="Hello there!"
-      previewText="This my first post!"
-      :is-admin="isAdmin" />
-    <PostPreview
-      id="2"
-      thumbnail="https://static.pexels.com/photos/270348/pexels-photo-270348.jpeg"
-      title="Hello there - the second time!"
-      previewText="This my second post!"
-      :is-admin="isAdmin" />
-    <PostPreview
-      id="3"
-      thumbnail="https://static.pexels.com/photos/270348/pexels-photo-270348.jpeg"
-      title="Hi!"
-      previewText="This my third post!"
+    <PostPreview v-for="post in posts"
+      :key="post.id"
+      :id="post.id"
+      :thumbnail="post.thumbnail"
+      :title="post.title"
+      :previewText="post.previewText"
       :is-admin="isAdmin" />
   </section>
 </template>
@@ -32,7 +21,11 @@ export default {
   props: {
     isAdmin: {
       type: Boolean,
-      default: false
+      default: false 
+    },
+    posts: {
+      type: Array,
+      required: true
     }
   }
 }
