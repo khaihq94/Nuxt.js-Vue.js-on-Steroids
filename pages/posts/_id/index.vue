@@ -21,12 +21,18 @@
 
 <script lang="ts">
 import Vue from "vue";
+import axios from 'axios'
+
 export default Vue.extend({
-  props: {
-    post: {
-      type: Object,
-      required: true
-    }
+  asyncData(context) {
+    return axios.get('https://nuxt-blog-udemy-course.firebaseio.com/posts/' + context.params.id + '.json')
+      .then(response => {
+        console.log(response.data)
+        return {
+          post: response.data
+        }
+      })
+      .catch(e => context.error(e));
   }
 });
 </script>

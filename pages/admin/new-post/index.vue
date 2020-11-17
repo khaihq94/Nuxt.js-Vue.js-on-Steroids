@@ -1,7 +1,7 @@
 <template>
   <div class="admin-new-postpage">
     <section class="new-post-form">
-      <AdminPostForm @submit="onSubmit"/>
+      <AdminPostForm @submit="onSubmit" />
     </section>
   </div>
 </template>
@@ -19,9 +19,13 @@ export default Vue.extend({
 
   methods: {
     onSubmit(postData: any) {
-      axios.post('https://nuxt-blog-udemy-course.firebaseio.com/posts.json', postData)
-      .then(result => console.log(result))
-      .catch(e => console.log(e));
+      axios
+        .post("https://nuxt-blog-udemy-course.firebaseio.com/posts.json", {
+          ...postData,
+          updatedDate: new Date()
+        })
+        .then(result => console.log(result))
+        .catch(e => console.log(e));
     }
   }
 });
