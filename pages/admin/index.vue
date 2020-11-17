@@ -7,7 +7,7 @@
     </section>
     <section class="existing-posts">
       <h1>Existing post</h1>
-      <PostList isAdmin />
+      <PostList isAdmin :posts="loadedPosts" />
     </section>
   </div>
 </template>
@@ -22,6 +22,12 @@ export default Vue.extend({
   components: {
     PostList,
     AppButton
+  },
+
+  computed: {
+    loadedPosts() {
+      return this.$store.getters.loadedPosts;
+    }
   }
 });
 </script>

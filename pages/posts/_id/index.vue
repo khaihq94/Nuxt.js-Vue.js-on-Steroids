@@ -27,7 +27,6 @@ export default Vue.extend({
   asyncData(context) {
     return axios.get('https://nuxt-blog-udemy-course.firebaseio.com/posts/' + context.params.id + '.json')
       .then(response => {
-        console.log(response.data)
         return {
           post: response.data
         }

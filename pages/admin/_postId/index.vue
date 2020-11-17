@@ -1,7 +1,7 @@
 <template>
   <div class="admin-post-page">
     <section class="update-form">
-      <AdminPostForm :post="loadedPost" />
+      <AdminPostForm :post="post" @submit="onSubmit" />
     </section>
   </div>
 </template>
@@ -9,6 +9,7 @@
 <script lang="ts">
 import Vue from "vue";
 import AdminPostForm from "@/components/Admin/AdminPostForm.vue";
+import axios from 'axios'
 
 export default Vue.extend({
   layout: "admin",
@@ -16,15 +17,22 @@ export default Vue.extend({
     AdminPostForm
   },
 
-  data() {
-    return {
-      loadedPost: {
-        author: "ioajsdojadiojd",
-        title: "xhkjnczvbkxjvhoi",
-        thumbnailLink: "qjhwteyiuqwyeoui",
-        content: "z,mxch,mznclkjh"
-      }
-    };
+  asyncData(context) {
+    return axios.get('https://nuxt-blog-udemy-course.firebaseio.com/posts/' + context.params.postId + '.json')
+      .then(response => {
+        return {
+          post: response.data
+        }
+      })
+      .catch(e => context.error(e));
+  },
+
+  methods: {
+    onSubmit(editedPost: any) {
+      axios.put('https://nuxt-blog-udemy-course.firebaseio.com/posts/' + this.$route.params.postId + '.json', editedPost)
+      .then(response => this.$router.push('.admin'))
+      .catch(e => console.log(e));
+    }
   }
 });
 </script>
