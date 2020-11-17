@@ -26,41 +26,43 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import AppControlInput from '@/components/UI/AppInputControl.vue'
-import AppButton from '@/components/UI/AppButton.vue'
+import Vue from "vue";
+import AppControlInput from "@/components/UI/AppInputControl.vue";
+import AppButton from "@/components/UI/AppButton.vue";
 
 export default Vue.extend({
-    components: {
-        AppButton,
-        AppControlInput
-    },
+  components: {
+    AppButton,
+    AppControlInput
+  },
 
-    props: {
-        post: {
-            type: Object,
-            required: false
-        }
-    },
-
-    data() {
-        return {
-            editedPost: this.post ? {...this.post} : {
-                author: '',
-                title: '',
-                thumbnailLink: '',
-                content: ''
-            }
-        }
-    },
-
-    methods: {
-        onSave() {
-            console.log(this.editedPost);
-        },
-        onCancel() {
-            this.$router.push('/admin')
-        }
+  props: {
+    post: {
+      type: Object,
+      required: false
     }
-})
+  },
+
+  data() {
+    return {
+      editedPost: this.post
+        ? { ...this.post }
+        : {
+            author: "",
+            title: "",
+            thumbnailLink: "",
+            content: ""
+          }
+    };
+  },
+
+  methods: {
+    onSave() {
+      this.$emit('submit', this.editedPost);
+    },
+    onCancel() {
+      this.$router.push("/admin");
+    }
+  }
+});
 </script>
